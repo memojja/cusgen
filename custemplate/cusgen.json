@@ -1,0 +1,11 @@
+{
+  "projectName": "gcustomer-services-gateway",
+  "resource": "/examples/users",
+  "resourceName": "Example",
+  "resourceFieldName": "example",
+  "apiClient": {
+    "name": "ClientExample",
+    "url":  "/apiClientExample"
+  }
+}
+

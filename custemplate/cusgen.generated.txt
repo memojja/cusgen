@@ -1,0 +1,40 @@
+import (
+	"ecomcore-gitlab.trendyol.com/gcustomer-services-gateway/src/services"
+	"github.com/gin-gonic/gin"
+	"net/http"
+)
+
+
+type ExampleController struct {
+	ExampleService services.ExampleService
+}
+
+func NewExampleController(ExampleService services.ExampleService) Controller {
+	return &ExampleController{
+		ExampleService: contractService,
+	}
+}
+
+// @Tags ExampleController
+// @Description Get Example
+// @Accept  json
+// @Produce  html
+// @Success 200 {object} response.ExampleResponse
+// @Failure 400 {object} models.ErrorResponse
+// @Failure 500 {object} models.ErrorResponse
+// @Router /v1/contract [get]
+func (controller *ExampleController) GetExample() func(context *gin.Context) {
+	return func(context *gin.Context) {
+		getExample, err := controller.ExampleService.GetExample()
+
+		if err != nil {
+			context.JSON(err.StatusCode, err)
+			return
+		}
+		context.JSON(http.StatusOK, getExample)
+	}
+}
+
+func (controller *ExampleController) Register(engine *gin.Engine) {
+	engine.GET("/examples/users", controller.GetExample())
+}
